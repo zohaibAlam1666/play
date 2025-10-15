@@ -15,7 +15,8 @@ test.describe('loginE2E', () => {
 
     const login2 = new LoginPage(page);
 
-    await login2.login("anythin","pass")
+    await login2.login("anything","password")
+    await login2.login("anything","password")
 
 
     // assert something about the flash message (example)
