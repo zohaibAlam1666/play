@@ -1,25 +1,20 @@
+// tests/login.spec.js
 import { test, expect } from '@playwright/test';
 import LoginPage from './page/loginpage';
 
-test.describe('loginE2E', () => {
+test.describe('Login E2E Tests', () => {
+  let loginPage;
+
   test.beforeEach(async ({ page }) => {
-    const login = new LoginPage(page);
-    await login.goto();               
+    loginPage = new LoginPage(page);
+    await loginPage.goto();
   });
 
-  test('test 001 - fill and submit', async ({ page }) => {
-    // either use the POM:
-    // await page.fill("#username","user");
-    // await page.fill("#password","pass");
-    // await expect(page.locator("#flash")).toContainText("your password is invalid")
+  test('Invalid username or password shows error message', async ({ page }) => {
+    await loginPage.login('wrongUser', 'wrongPass');
+    const msg = await loginPage.getMessageText()
 
-    const login2 = new LoginPage(page);
-
-    await login2.login("anything","password")
-    await login2.login("anything","password")
-
-
-    // assert something about the flash message (example)
+    expect(msg).toMatch(/username|required!|invaled/)
 
   });
 });
