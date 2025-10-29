@@ -10,8 +10,8 @@ export default class LoginPage {
     this.message = page.locator("body")
   }
 
-  async goto() {
-    await this.page.goto('https://practice.expandtesting.com/login');
+  async goto(ur) {
+    await this.page.goto(ur);
   }
 
   async login(user, pass) {

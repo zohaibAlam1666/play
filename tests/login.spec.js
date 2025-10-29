@@ -7,7 +7,7 @@ test.describe('Login E2E Tests', () => {
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
-    await loginPage.goto();
+    await loginPage.goto("'https://practice.expandtesting.com/login");
   });
 
   test('Invalid username or password shows error message', async ({ page }) => {
