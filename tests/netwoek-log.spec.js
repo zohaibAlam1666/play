@@ -12,7 +12,6 @@ test("Test 1", async ({ page }) => {
   ]);
 
   expect(reqAuth.method()).toBe("POST");
-  console("this is just a test")
 
   const status = recAuth.status();
   console.log("this is my status",status)
