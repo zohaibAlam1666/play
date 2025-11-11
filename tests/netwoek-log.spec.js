@@ -5,16 +5,26 @@ test("Test 1", async ({ page }) => {
   const login = new LoginPage(page);
   await login.goto();
 
-  const [reqAuth, recAuth] = await Promise.all([
-    page.waitForRequest(req => req.url().includes("authenticate")),
-    page.waitForResponse(res => res.url().includes("authenticate")),
-    login.login("wronguser", "wrongpass"), // action triggers the request
-  ]);
+  let start = Date.now()
 
-  expect(reqAuth.method()).toBe("POST");
+  const reqestWaite = page.waitForRequest(req=> req.url().includes("authenticate"))
+  const respontWaite = page.waitForResponse(res=> res.url().includes("authenticate"))
 
-  const status = recAuth.status();
-  console.log("this is my status",status)
-  expect([400, 403, 401, 422, 302, 204].includes(status)).toBeTruthy();
+  await login.login("this is my user","this is my pass")
+
+  let reqAuth = await reqestWaite
+  let recAuth = await respontWaite
+
+  let elapsed = Date.now() - start
+
+  expect(reqAuth.method()).toBe("POST")
+
+  let status = recAuth.status()
+  console.log("this is the status", status)
+  expect([400,300,204].includes(status)).toBeTruthy();
+
+  expect(elapsed).toBeLessThan(3000)
+
+  console.log(elapsed)
 
 });
